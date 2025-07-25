@@ -1,343 +1,589 @@
-import React from 'react';
-import { Card, CardContent } from '@/components/ui/card';
+import React, { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Progress } from '@/components/ui/progress';
+import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
 
 const Index = () => {
-  const cases = [
-    {
-      id: 1,
-      title: "Веб-платформа для финтеха",
-      description: "Разработка современного интерфейса для финансовой платформы с акцентом на UX и безопасность",
-      image: "img/629128c6-4a7d-49f4-8188-eba0128998f1.jpg",
-      category: "Web Design",
-      year: "2024"
-    },
-    {
-      id: 2,
-      title: "Брендинг для стартапа",
-      description: "Создание фирменного стиля и визуальной айдентики для технологического стартапа",
-      image: "img/86170f3f-10a1-4784-8e70-017826d5d2ee.jpg",
-      category: "Branding",
-      year: "2024"
-    },
-    {
-      id: 3,
-      title: "Мобильное приложение",
-      description: "Дизайн интуитивного мобильного приложения для управления проектами",
-      image: "img/3c36f92b-7c99-427c-a155-e164a937b64b.jpg",
-      category: "Mobile App",
-      year: "2023"
-    }
+  const [activeScreen, setActiveScreen] = useState('login');
+
+  // Данные для демонстрации
+  const userStats = {
+    steps: 8547,
+    calories: 342,
+    distance: 6.2,
+    activeMinutes: 45
+  };
+
+  const workoutTypes = [
+    { id: 1, name: 'Бег', icon: 'Zap', color: 'bg-blue-500', duration: '30 мин' },
+    { id: 2, name: 'Йога', icon: 'Heart', color: 'bg-purple-500', duration: '45 мин' },
+    { id: 3, name: 'Силовые', icon: 'Dumbbell', color: 'bg-red-500', duration: '60 мин' },
+    { id: 4, name: 'Велосипед', icon: 'Bike', color: 'bg-green-500', duration: '90 мин' }
   ];
 
-  const services = [
-    {
-      icon: "Palette",
-      title: "Веб-дизайн",
-      description: "Создаем современные и функциональные веб-интерфейсы"
-    },
-    {
-      icon: "Smartphone",
-      title: "Мобильные приложения",
-      description: "Разрабатываем интуитивные мобильные интерфейсы"
-    },
-    {
-      icon: "Zap",
-      title: "Брендинг",
-      description: "Создаем уникальную визуальную айдентику"
-    },
-    {
-      icon: "Code",
-      title: "Разработка",
-      description: "Воплощаем дизайн в функциональный код"
-    }
+  const weeklyProgress = [
+    { day: 'Пн', steps: 7200 },
+    { day: 'Вт', steps: 8500 },
+    { day: 'Ср', steps: 6800 },
+    { day: 'Чт', steps: 9200 },
+    { day: 'Пт', steps: 8547 },
+    { day: 'Сб', steps: 0 },
+    { day: 'Вс', steps: 0 }
   ];
 
-  return (
-    <div className="min-h-screen bg-slate-50">
-      {/* Navigation */}
-      <nav className="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                <Icon name="Zap" size={20} className="text-white" />
-              </div>
-              <span className="font-bold text-xl text-slate-900">Студия</span>
-            </div>
-            <div className="hidden md:flex items-center space-x-8">
-              <a href="#home" className="text-slate-700 hover:text-blue-600 transition-colors">Главная</a>
-              <a href="#cases" className="text-slate-700 hover:text-blue-600 transition-colors">Кейсы</a>
-              <a href="#about" className="text-slate-700 hover:text-blue-600 transition-colors">О нас</a>
-              <a href="#services" className="text-slate-700 hover:text-blue-600 transition-colors">Услуги</a>
-              <a href="#contact" className="text-slate-700 hover:text-blue-600 transition-colors">Контакты</a>
-            </div>
-            <Button className="bg-blue-600 hover:bg-blue-700">
-              Обсудить проект
-            </Button>
+  const renderLoginScreen = () => (
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-blue-50 flex items-center justify-center p-4">
+      <div className="w-full max-w-md">
+        <div className="text-center mb-8">
+          <div className="w-20 h-20 bg-emerald-500 rounded-3xl mx-auto mb-4 flex items-center justify-center">
+            <Icon name="Activity" size={40} className="text-white" />
           </div>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">FitTracker</h1>
+          <p className="text-gray-600">Ваш персональный фитнес-помощник</p>
         </div>
-      </nav>
 
-      {/* Hero Section */}
-      <section id="home" className="relative py-20 lg:py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-100"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="animate-fade-in">
-              <h1 className="text-4xl lg:text-6xl font-bold text-slate-900 leading-tight mb-6">
-                Создаем
-                <span className="text-blue-600 block">дизайн будущего</span>
-              </h1>
-              <p className="text-xl text-slate-600 mb-8 leading-relaxed">
-                Мы — креативная студия, которая превращает идеи в выдающиеся цифровые продукты. 
-                Наша команда создает современные решения для брендов завтрашнего дня.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-blue-600 hover:bg-blue-700 px-8">
-                  Посмотреть работы
-                  <Icon name="ArrowRight" size={20} className="ml-2" />
+        <Card className="shadow-xl border-0">
+          <CardContent className="p-6">
+            <Tabs defaultValue="login" className="w-full">
+              <TabsList className="grid w-full grid-cols-2 mb-6">
+                <TabsTrigger value="login">Вход</TabsTrigger>
+                <TabsTrigger value="register">Регистрация</TabsTrigger>
+              </TabsList>
+              
+              <TabsContent value="login" className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email</Label>
+                  <Input id="email" type="email" placeholder="your@email.com" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="password">Пароль</Label>
+                  <Input id="password" type="password" />
+                </div>
+                <Button 
+                  className="w-full bg-emerald-500 hover:bg-emerald-600" 
+                  onClick={() => setActiveScreen('dashboard')}
+                >
+                  Войти
                 </Button>
-                <Button variant="outline" size="lg" className="px-8">
-                  Обсудить проект
+              </TabsContent>
+              
+              <TabsContent value="register" className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="name">Имя</Label>
+                  <Input id="name" placeholder="Ваше имя" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="email-reg">Email</Label>
+                  <Input id="email-reg" type="email" placeholder="your@email.com" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="password-reg">Пароль</Label>
+                  <Input id="password-reg" type="password" />
+                </div>
+                <Button className="w-full bg-emerald-500 hover:bg-emerald-600">
+                  Зарегистрироваться
+                </Button>
+              </TabsContent>
+            </Tabs>
+
+            <div className="mt-6">
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-gray-300" />
+                </div>
+                <div className="relative flex justify-center text-sm">
+                  <span className="px-2 bg-white text-gray-500">или</span>
+                </div>
+              </div>
+
+              <div className="mt-6 space-y-3">
+                <Button variant="outline" className="w-full">
+                  <Icon name="Chrome" size={20} className="mr-2" />
+                  Войти через Google
+                </Button>
+                <Button variant="outline" className="w-full">
+                  <Icon name="Facebook" size={20} className="mr-2" />
+                  Войти через Facebook
                 </Button>
               </div>
             </div>
-            <div className="relative animate-scale-in">
-              <img 
-                src="img/3c36f92b-7c99-427c-a155-e164a937b64b.jpg" 
-                alt="Creative Design" 
-                className="w-full h-auto rounded-2xl shadow-2xl"
-              />
-              <div className="absolute -bottom-6 -left-6 w-24 h-24 bg-blue-600 rounded-2xl opacity-20"></div>
-              <div className="absolute -top-6 -right-6 w-16 h-16 bg-indigo-500 rounded-xl opacity-30"></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Cases Section */}
-      <section id="cases" className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-5xl font-bold text-slate-900 mb-6">
-              Наши кейсы
-            </h2>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Каждый проект — это уникальная история успеха. Мы гордимся результатами, 
-              которые помогают нашим клиентам достигать новых высот.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {cases.map((caseItem, index) => (
-              <Card 
-                key={caseItem.id} 
-                className="group cursor-pointer hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border-0 shadow-lg overflow-hidden"
-                style={{ animationDelay: `${index * 0.2}s` }}
-              >
-                <div className="relative overflow-hidden">
-                  <img 
-                    src={caseItem.image} 
-                    alt={caseItem.title}
-                    className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <div className="absolute top-4 left-4">
-                    <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium">
-                      {caseItem.category}
-                    </span>
-                  </div>
-                  <div className="absolute top-4 right-4">
-                    <span className="bg-white/20 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm font-medium">
-                      {caseItem.year}
-                    </span>
-                  </div>
-                </div>
-                <CardContent className="p-6">
-                  <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors">
-                    {caseItem.title}
-                  </h3>
-                  <p className="text-slate-600 leading-relaxed mb-4">
-                    {caseItem.description}
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <Button variant="ghost" className="p-0 h-auto font-semibold text-blue-600 hover:text-blue-700">
-                      Подробнее
-                      <Icon name="ArrowRight" size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <Button variant="outline" size="lg" className="px-8">
-              Смотреть все проекты
-              <Icon name="Grid3X3" size={20} className="ml-2" />
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section id="about" className="py-20 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <h2 className="text-3xl lg:text-5xl font-bold text-slate-900 mb-6">
-                О нашей студии
-              </h2>
-              <p className="text-lg text-slate-600 mb-6 leading-relaxed">
-                Мы — команда креативных профессионалов с 8-летним опытом в создании цифровых продуктов. 
-                Наша философия заключается в том, что хороший дизайн должен не только красиво выглядеть, 
-                но и решать реальные бизнес-задачи.
-              </p>
-              <p className="text-lg text-slate-600 mb-8 leading-relaxed">
-                За время работы мы помогли более 150 компаниям создать уникальные цифровые решения, 
-                которые приносят результат и выделяют их среди конкурентов.
-              </p>
-              <div className="grid grid-cols-3 gap-8">
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-blue-600 mb-2">150+</div>
-                  <div className="text-sm text-slate-600">Проектов</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-blue-600 mb-2">8</div>
-                  <div className="text-sm text-slate-600">Лет опыта</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-blue-600 mb-2">98%</div>
-                  <div className="text-sm text-slate-600">Довольных клиентов</div>
-                </div>
-              </div>
-            </div>
-            <div className="relative">
-              <div className="bg-gradient-to-br from-blue-100 to-indigo-200 rounded-2xl p-8">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-white rounded-xl p-4 shadow-lg">
-                    <Icon name="Users" size={32} className="text-blue-600 mb-2" />
-                    <div className="text-sm font-semibold">Команда</div>
-                  </div>
-                  <div className="bg-white rounded-xl p-4 shadow-lg">
-                    <Icon name="Award" size={32} className="text-blue-600 mb-2" />
-                    <div className="text-sm font-semibold">Награды</div>
-                  </div>
-                  <div className="bg-white rounded-xl p-4 shadow-lg">
-                    <Icon name="Target" size={32} className="text-blue-600 mb-2" />
-                    <div className="text-sm font-semibold">Цели</div>
-                  </div>
-                  <div className="bg-white rounded-xl p-4 shadow-lg">
-                    <Icon name="Rocket" size={32} className="text-blue-600 mb-2" />
-                    <div className="text-sm font-semibold">Инновации</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Services Section */}
-      <section id="services" className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-5xl font-bold text-slate-900 mb-6">
-              Наши услуги
-            </h2>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Мы предлагаем полный цикл создания цифровых продуктов — от идеи до запуска и поддержки.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {services.map((service, index) => (
-              <Card 
-                key={index} 
-                className="group text-center p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-0 shadow-lg"
-              >
-                <div className="w-16 h-16 bg-blue-100 rounded-2xl mx-auto mb-4 flex items-center justify-center group-hover:bg-blue-600 transition-colors duration-300">
-                  <Icon 
-                    name={service.icon} 
-                    size={32} 
-                    className="text-blue-600 group-hover:text-white transition-colors duration-300" 
-                  />
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">
-                  {service.title}
-                </h3>
-                <p className="text-slate-600">
-                  {service.description}
-                </p>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section id="contact" className="py-20 bg-slate-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-5xl font-bold text-white mb-6">
-              Готовы начать проект?
-            </h2>
-            <p className="text-xl text-slate-300 max-w-3xl mx-auto mb-8">
-              Расскажите нам о своей идее, и мы поможем воплотить её в жизнь. 
-              Свяжитесь с нами любым удобным способом.
-            </p>
-            <Button size="lg" className="bg-blue-600 hover:bg-blue-700 px-8">
-              Обсудить проект
-              <Icon name="MessageCircle" size={20} className="ml-2" />
-            </Button>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8 text-center">
-            <div className="group">
-              <div className="w-16 h-16 bg-blue-600 rounded-2xl mx-auto mb-4 flex items-center justify-center group-hover:bg-blue-500 transition-colors">
-                <Icon name="Mail" size={32} className="text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-2">Email</h3>
-              <p className="text-slate-300">hello@studio.com</p>
-            </div>
-            <div className="group">
-              <div className="w-16 h-16 bg-blue-600 rounded-2xl mx-auto mb-4 flex items-center justify-center group-hover:bg-blue-500 transition-colors">
-                <Icon name="Phone" size={32} className="text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-2">Телефон</h3>
-              <p className="text-slate-300">+7 (999) 123-45-67</p>
-            </div>
-            <div className="group">
-              <div className="w-16 h-16 bg-blue-600 rounded-2xl mx-auto mb-4 flex items-center justify-center group-hover:bg-blue-500 transition-colors">
-                <Icon name="MapPin" size={32} className="text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-2">Офис</h3>
-              <p className="text-slate-300">Москва, Россия</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-slate-950 py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="flex items-center space-x-2 mb-4 md:mb-0">
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                <Icon name="Zap" size={20} className="text-white" />
-              </div>
-              <span className="font-bold text-xl text-white">Студия</span>
-            </div>
-            <p className="text-slate-400 text-center md:text-right">
-              © 2024 Креативная Студия. Все права защищены.
-            </p>
-          </div>
-        </div>
-      </footer>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
+
+  const renderDashboard = () => (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-white shadow-sm px-4 py-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900">Привет, Анна! 👋</h1>
+            <p className="text-gray-600">Готова к новым достижениям?</p>
+          </div>
+          <div className="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center">
+            <Icon name="User" size={24} className="text-white" />
+          </div>
+        </div>
+      </div>
+
+      <div className="p-4 space-y-6 pb-20">
+        {/* Основные метрики */}
+        <div className="grid grid-cols-2 gap-4">
+          <Card className="shadow-lg border-0">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-gray-600">Шаги</p>
+                  <p className="text-2xl font-bold text-emerald-600">{userStats.steps.toLocaleString()}</p>
+                  <p className="text-xs text-gray-500">из 10,000</p>
+                </div>
+                <div className="w-12 h-12 bg-emerald-100 rounded-2xl flex items-center justify-center">
+                  <Icon name="Footprints" size={24} className="text-emerald-600" />
+                </div>
+              </div>
+              <Progress value={85} className="mt-3 h-2" />
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-lg border-0">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-gray-600">Калории</p>
+                  <p className="text-2xl font-bold text-orange-600">{userStats.calories}</p>
+                  <p className="text-xs text-gray-500">ккал</p>
+                </div>
+                <div className="w-12 h-12 bg-orange-100 rounded-2xl flex items-center justify-center">
+                  <Icon name="Flame" size={24} className="text-orange-600" />
+                </div>
+              </div>
+              <Progress value={68} className="mt-3 h-2" />
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-lg border-0">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-gray-600">Расстояние</p>
+                  <p className="text-2xl font-bold text-blue-600">{userStats.distance}</p>
+                  <p className="text-xs text-gray-500">км</p>
+                </div>
+                <div className="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center">
+                  <Icon name="MapPin" size={24} className="text-blue-600" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-lg border-0">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-gray-600">Активность</p>
+                  <p className="text-2xl font-bold text-purple-600">{userStats.activeMinutes}</p>
+                  <p className="text-xs text-gray-500">мин</p>
+                </div>
+                <div className="w-12 h-12 bg-purple-100 rounded-2xl flex items-center justify-center">
+                  <Icon name="Clock" size={24} className="text-purple-600" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Быстрые действия */}
+        <Card className="shadow-lg border-0">
+          <CardHeader>
+            <CardTitle className="text-lg">Начать тренировку</CardTitle>
+          </CardHeader>
+          <CardContent className="p-4 pt-0">
+            <div className="grid grid-cols-2 gap-3">
+              {workoutTypes.map((workout) => (
+                <Button
+                  key={workout.id}
+                  variant="ghost"
+                  className="h-20 flex flex-col items-center justify-center space-y-2 border border-gray-200 hover:border-emerald-300 hover:bg-emerald-50"
+                  onClick={() => setActiveScreen('workout')}
+                >
+                  <div className={`w-8 h-8 ${workout.color} rounded-xl flex items-center justify-center`}>
+                    <Icon name={workout.icon} size={16} className="text-white" />
+                  </div>
+                  <div className="text-center">
+                    <p className="text-sm font-medium">{workout.name}</p>
+                    <p className="text-xs text-gray-500">{workout.duration}</p>
+                  </div>
+                </Button>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Прогресс за неделю */}
+        <Card className="shadow-lg border-0">
+          <CardHeader>
+            <CardTitle className="text-lg">Прогресс за неделю</CardTitle>
+          </CardHeader>
+          <CardContent className="p-4 pt-0">
+            <div className="flex items-end justify-between h-32">
+              {weeklyProgress.map((day, index) => (
+                <div key={index} className="flex flex-col items-center space-y-2">
+                  <div 
+                    className="w-6 bg-emerald-500 rounded-t-lg"
+                    style={{ height: `${(day.steps / 10000) * 100}px` }}
+                  />
+                  <span className="text-xs text-gray-600">{day.day}</span>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Bottom Navigation */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2">
+        <div className="flex justify-around">
+          <Button variant="ghost" size="sm" className="flex flex-col items-center space-y-1 text-emerald-600">
+            <Icon name="Home" size={20} />
+            <span className="text-xs">Главная</span>
+          </Button>
+          <Button variant="ghost" size="sm" className="flex flex-col items-center space-y-1" onClick={() => setActiveScreen('stats')}>
+            <Icon name="BarChart3" size={20} />
+            <span className="text-xs">Статистика</span>
+          </Button>
+          <Button variant="ghost" size="sm" className="flex flex-col items-center space-y-1" onClick={() => setActiveScreen('workout')}>
+            <Icon name="Plus" size={20} />
+            <span className="text-xs">Добавить</span>
+          </Button>
+          <Button variant="ghost" size="sm" className="flex flex-col items-center space-y-1" onClick={() => setActiveScreen('profile')}>
+            <Icon name="User" size={20} />
+            <span className="text-xs">Профиль</span>
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderWorkoutScreen = () => (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-white shadow-sm px-4 py-6 flex items-center justify-between">
+        <Button variant="ghost" size="sm" onClick={() => setActiveScreen('dashboard')}>
+          <Icon name="ArrowLeft" size={20} />
+        </Button>
+        <h1 className="text-xl font-semibold">Добавить тренировку</h1>
+        <div className="w-8"></div>
+      </div>
+
+      <div className="p-4 space-y-6 pb-20">
+        {/* Выбор типа тренировки */}
+        <Card className="shadow-lg border-0">
+          <CardHeader>
+            <CardTitle className="text-lg">Тип тренировки</CardTitle>
+          </CardHeader>
+          <CardContent className="p-4 pt-0">
+            <div className="grid grid-cols-2 gap-3">
+              {workoutTypes.map((workout) => (
+                <Button
+                  key={workout.id}
+                  variant="outline"
+                  className="h-24 flex flex-col items-center justify-center space-y-3 hover:border-emerald-300 hover:bg-emerald-50"
+                >
+                  <div className={`w-10 h-10 ${workout.color} rounded-2xl flex items-center justify-center`}>
+                    <Icon name={workout.icon} size={20} className="text-white" />
+                  </div>
+                  <span className="text-sm font-medium">{workout.name}</span>
+                </Button>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Параметры тренировки */}
+        <Card className="shadow-lg border-0">
+          <CardHeader>
+            <CardTitle className="text-lg">Параметры</CardTitle>
+          </CardHeader>
+          <CardContent className="p-4 pt-0 space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="duration">Длительность (мин)</Label>
+                <Input id="duration" type="number" placeholder="30" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="calories">Калории</Label>
+                <Input id="calories" type="number" placeholder="250" />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="distance">Расстояние (км)</Label>
+              <Input id="distance" type="number" step="0.1" placeholder="5.0" />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="notes">Заметки</Label>
+              <Input id="notes" placeholder="Отличная пробежка в парке" />
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Кнопка сохранения */}
+        <Button className="w-full bg-emerald-500 hover:bg-emerald-600 h-12">
+          <Icon name="Check" size={20} className="mr-2" />
+          Сохранить тренировку
+        </Button>
+      </div>
+    </div>
+  );
+
+  const renderStatsScreen = () => (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-white shadow-sm px-4 py-6 flex items-center justify-between">
+        <Button variant="ghost" size="sm" onClick={() => setActiveScreen('dashboard')}>
+          <Icon name="ArrowLeft" size={20} />
+        </Button>
+        <h1 className="text-xl font-semibold">Статистика</h1>
+        <Button variant="ghost" size="sm">
+          <Icon name="Calendar" size={20} />
+        </Button>
+      </div>
+
+      <div className="p-4 space-y-6 pb-20">
+        {/* Фильтры */}
+        <div className="flex space-x-2">
+          <Badge variant="default" className="bg-emerald-500">Неделя</Badge>
+          <Badge variant="outline">Месяц</Badge>
+          <Badge variant="outline">Год</Badge>
+        </div>
+
+        {/* Общая статистика */}
+        <Card className="shadow-lg border-0">
+          <CardHeader>
+            <CardTitle className="text-lg">За эту неделю</CardTitle>
+          </CardHeader>
+          <CardContent className="p-4 pt-0">
+            <div className="grid grid-cols-3 gap-4 text-center">
+              <div>
+                <p className="text-2xl font-bold text-emerald-600">12</p>
+                <p className="text-sm text-gray-600">Тренировок</p>
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-orange-600">2,450</p>
+                <p className="text-sm text-gray-600">Калорий</p>
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-blue-600">28.5</p>
+                <p className="text-sm text-gray-600">км</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* График активности */}
+        <Card className="shadow-lg border-0">
+          <CardHeader>
+            <CardTitle className="text-lg">Активность по дням</CardTitle>
+          </CardHeader>
+          <CardContent className="p-4 pt-0">
+            <div className="space-y-3">
+              {['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'].map((day, index) => (
+                <div key={day} className="flex items-center justify-between">
+                  <span className="text-sm text-gray-600 w-20">{day.slice(0, 2)}</span>
+                  <div className="flex-1 mx-3">
+                    <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-emerald-500 rounded-full"
+                        style={{ width: `${Math.random() * 100}%` }}
+                      />
+                    </div>
+                  </div>
+                  <span className="text-sm font-medium w-12 text-right">{Math.floor(Math.random() * 60)}м</span>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Топ тренировок */}
+        <Card className="shadow-lg border-0">
+          <CardHeader>
+            <CardTitle className="text-lg">Любимые тренировки</CardTitle>
+          </CardHeader>
+          <CardContent className="p-4 pt-0">
+            <div className="space-y-3">
+              {workoutTypes.slice(0, 3).map((workout, index) => (
+                <div key={workout.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+                  <div className="flex items-center space-x-3">
+                    <div className={`w-10 h-10 ${workout.color} rounded-2xl flex items-center justify-center`}>
+                      <Icon name={workout.icon} size={20} className="text-white" />
+                    </div>
+                    <div>
+                      <p className="font-medium">{workout.name}</p>
+                      <p className="text-sm text-gray-600">{index + 3} тренировок</p>
+                    </div>
+                  </div>
+                  <Icon name="TrendingUp" size={16} className="text-emerald-600" />
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+
+  const renderProfileScreen = () => (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-white shadow-sm px-4 py-6 flex items-center justify-between">
+        <Button variant="ghost" size="sm" onClick={() => setActiveScreen('dashboard')}>
+          <Icon name="ArrowLeft" size={20} />
+        </Button>
+        <h1 className="text-xl font-semibold">Профиль</h1>
+        <Button variant="ghost" size="sm">
+          <Icon name="Settings" size={20} />
+        </Button>
+      </div>
+
+      <div className="p-4 space-y-6 pb-20">
+        {/* Профиль пользователя */}
+        <Card className="shadow-lg border-0">
+          <CardContent className="p-6">
+            <div className="flex items-center space-x-4">
+              <div className="w-20 h-20 bg-emerald-500 rounded-full flex items-center justify-center">
+                <Icon name="User" size={32} className="text-white" />
+              </div>
+              <div className="flex-1">
+                <h2 className="text-xl font-bold text-gray-900">Анна Петрова</h2>
+                <p className="text-gray-600">25 лет • Москва</p>
+                <Badge className="mt-2 bg-emerald-100 text-emerald-700">Активный пользователь</Badge>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Цели */}
+        <Card className="shadow-lg border-0">
+          <CardHeader>
+            <CardTitle className="text-lg">Моя цель</CardTitle>
+          </CardHeader>
+          <CardContent className="p-4 pt-0">
+            <div className="flex items-center justify-between p-4 bg-blue-50 rounded-xl">
+              <div className="flex items-center space-x-3">
+                <div className="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center">
+                  <Icon name="Target" size={24} className="text-white" />
+                </div>
+                <div>
+                  <p className="font-medium">Поддержание формы</p>
+                  <p className="text-sm text-gray-600">10,000 шагов в день</p>
+                </div>
+              </div>
+              <Icon name="ChevronRight" size={16} className="text-gray-400" />
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Достижения */}
+        <Card className="shadow-lg border-0">
+          <CardHeader>
+            <CardTitle className="text-lg">Достижения</CardTitle>
+          </CardHeader>
+          <CardContent className="p-4 pt-0">
+            <div className="grid grid-cols-3 gap-4">
+              <div className="text-center p-3 bg-yellow-50 rounded-xl">
+                <div className="w-12 h-12 bg-yellow-500 rounded-2xl mx-auto mb-2 flex items-center justify-center">
+                  <Icon name="Award" size={20} className="text-white" />
+                </div>
+                <p className="text-sm font-medium">Марафонец</p>
+                <p className="text-xs text-gray-600">100 км</p>
+              </div>
+              <div className="text-center p-3 bg-purple-50 rounded-xl">
+                <div className="w-12 h-12 bg-purple-500 rounded-2xl mx-auto mb-2 flex items-center justify-center">
+                  <Icon name="Flame" size={20} className="text-white" />
+                </div>
+                <p className="text-sm font-medium">Огонёк</p>
+                <p className="text-xs text-gray-600">7 дней</p>
+              </div>
+              <div className="text-center p-3 bg-green-50 rounded-xl">
+                <div className="w-12 h-12 bg-green-500 rounded-2xl mx-auto mb-2 flex items-center justify-center">
+                  <Icon name="Trophy" size={20} className="text-white" />
+                </div>
+                <p className="text-sm font-medium">Чемпион</p>
+                <p className="text-xs text-gray-600">30 тр.</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Настройки */}
+        <Card className="shadow-lg border-0">
+          <CardHeader>
+            <CardTitle className="text-lg">Настройки</CardTitle>
+          </CardHeader>
+          <CardContent className="p-4 pt-0 space-y-3">
+            <div className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-xl cursor-pointer">
+              <div className="flex items-center space-x-3">
+                <Icon name="Bell" size={20} className="text-gray-600" />
+                <span>Уведомления</span>
+              </div>
+              <Icon name="ChevronRight" size={16} className="text-gray-400" />
+            </div>
+            <div className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-xl cursor-pointer">
+              <div className="flex items-center space-x-3">
+                <Icon name="Shield" size={20} className="text-gray-600" />
+                <span>Приватность</span>
+              </div>
+              <Icon name="ChevronRight" size={16} className="text-gray-400" />
+            </div>
+            <div className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-xl cursor-pointer">
+              <div className="flex items-center space-x-3">
+                <Icon name="HelpCircle" size={20} className="text-gray-600" />
+                <span>Помощь</span>
+              </div>
+              <Icon name="ChevronRight" size={16} className="text-gray-400" />
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Выход */}
+        <Button 
+          variant="outline" 
+          className="w-full text-red-600 border-red-200 hover:bg-red-50"
+          onClick={() => setActiveScreen('login')}
+        >
+          <Icon name="LogOut" size={20} className="mr-2" />
+          Выйти из аккаунта
+        </Button>
+      </div>
+    </div>
+  );
+
+  // Основная логика рендеринга
+  const renderScreen = () => {
+    switch (activeScreen) {
+      case 'login':
+        return renderLoginScreen();
+      case 'dashboard':
+        return renderDashboard();
+      case 'workout':
+        return renderWorkoutScreen();
+      case 'stats':
+        return renderStatsScreen();
+      case 'profile':
+        return renderProfileScreen();
+      default:
+        return renderDashboard();
+    }
+  };
+
+  return renderScreen();
 };
 
 export default Index;
